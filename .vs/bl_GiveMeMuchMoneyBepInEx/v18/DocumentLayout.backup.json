@@ -1,0 +1,62 @@
+{
+  "Version": 1,
+  "WorkspaceRootPath": "C:\\Users\\CdemyTeilnehmer\\Downloads\\BitchLand_build10e_preinstalledmods\\build10e\\bl_GiveMeMuchMoneyModBepInEx\\",
+  "Documents": [
+    {
+      "AbsoluteMoniker": "D:0:0:{0C896484-42E3-8758-0CEB-466F5E4FFBB7}|bl_GiveMeMuchMoneyBepInEx.csproj|c:\\users\\cdemyteilnehmer\\downloads\\bitchland_build10e_preinstalledmods\\build10e\\bl_givememuchmoneymodbepinex\\bl_givememuchmoneybepinex.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{0C896484-42E3-8758-0CEB-466F5E4FFBB7}|bl_GiveMeMuchMoneyBepInEx.csproj|solutionrelative:bl_givememuchmoneybepinex.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{0C896484-42E3-8758-0CEB-466F5E4FFBB7}|bl_GiveMeMuchMoneyBepInEx.csproj|c:\\users\\cdemyteilnehmer\\downloads\\bitchland_build10e_preinstalledmods\\build10e\\bl_givememuchmoneymodbepinex\\bl_givememuchmoneybepinex.csproj||{FA3CD31E-987B-443A-9B81-186104E8DAC1}|",
+      "RelativeMoniker": "D:0:0:{0C896484-42E3-8758-0CEB-466F5E4FFBB7}|bl_GiveMeMuchMoneyBepInEx.csproj|solutionrelative:bl_givememuchmoneybepinex.csproj||{FA3CD31E-987B-443A-9B81-186104E8DAC1}|"
+    }
+  ],
+  "DocumentGroupContainers": [
+    {
+      "Orientation": 0,
+      "VerticalTabListWidth": 256,
+      "DocumentGroups": [
+        {
+          "DockedWidth": 200,
+          "SelectedChildIndex": 0,
+          "Children": [
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "bl_GiveMeMuchMoneyBepInEx.cs",
+              "DocumentMoniker": "C:\\Users\\CdemyTeilnehmer\\Downloads\\BitchLand_build10e_preinstalledmods\\build10e\\bl_GiveMeMuchMoneyModBepInEx\\bl_GiveMeMuchMoneyBepInEx.cs",
+              "RelativeDocumentMoniker": "bl_GiveMeMuchMoneyBepInEx.cs",
+              "ToolTip": "C:\\Users\\CdemyTeilnehmer\\Downloads\\BitchLand_build10e_preinstalledmods\\build10e\\bl_GiveMeMuchMoneyModBepInEx\\bl_GiveMeMuchMoneyBepInEx.cs",
+              "RelativeToolTip": "bl_GiveMeMuchMoneyBepInEx.cs",
+              "ViewState": "AgIAAAkAAAAAAAAAAAAAABgAAAAJAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-12-17T06:34:25.629Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "bl_GiveMeMuchMoneyBepInEx",
+              "DocumentMoniker": "C:\\Users\\CdemyTeilnehmer\\Downloads\\BitchLand_build10e_preinstalledmods\\build10e\\bl_GiveMeMuchMoneyModBepInEx\\bl_GiveMeMuchMoneyBepInEx.csproj",
+              "RelativeDocumentMoniker": "bl_GiveMeMuchMoneyBepInEx.csproj",
+              "ToolTip": "C:\\Users\\CdemyTeilnehmer\\Downloads\\BitchLand_build10e_preinstalledmods\\build10e\\bl_GiveMeMuchMoneyModBepInEx\\bl_GiveMeMuchMoneyBepInEx.csproj",
+              "RelativeToolTip": "bl_GiveMeMuchMoneyBepInEx.csproj",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000758|",
+              "WhenOpened": "2025-12-17T06:34:20.052Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:0:0:{d78612c7-9962-4b83-95d9-268046dad23a}"
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:0:0:{34e76e81-ee4a-11d0-ae2e-00a0c90fffc3}"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
