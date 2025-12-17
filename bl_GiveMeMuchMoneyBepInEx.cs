@@ -65,11 +65,15 @@ namespace BitchlandGiveMuchMoneyBepInWx
             job_ArmyBuildingWork _this = (job_ArmyBuildingWork)__instance;
             UI_Gameplay _gameplay = Main.Instance.GameplayMenu;
             Person person = _gameplay.PersonChattingTo;
-            _gameplay.AddChatOption("Give Me 90 Mio Cash", (Action)(() =>
+            
+            _gameplay.AddChatOption("Give Me 90 Mio Cash and add me 100 hunger", (Action)(() =>
             {
                 Main.Instance.GameplayMenu.EnableMove();
                 Main.Instance.Player.Money += 90000000;
+                Main.Instance.Player.Hunger += 100;
+                _gameplay.DisplaySubtitle("Here money and hunger for you!", (AudioClip)null, new Action(person.ThisPersonInt.EndTheChat));
             }));
+
             return;
         }
 
@@ -87,10 +91,12 @@ namespace BitchlandGiveMuchMoneyBepInWx
             job_StripClub _this = (job_StripClub)__instance;
             UI_Gameplay _gameplay = Main.Instance.GameplayMenu;
             Person person = _gameplay.PersonChattingTo;
-            _gameplay.AddChatOption("Give Me 90 Mio Cash", (Action)(() =>
+            _gameplay.AddChatOption("Give Me 90 Mio Cash and add me 100 hunger", (Action)(() =>
             {
                 Main.Instance.GameplayMenu.EnableMove();
                 Main.Instance.Player.Money += 90000000;
+                Main.Instance.Player.Hunger += 100;
+                _gameplay.DisplaySubtitle("Here money and hunger for you!", (AudioClip)null, new Action(person.ThisPersonInt.EndTheChat));
             }));
             return;
         }
