@@ -47,13 +47,10 @@ namespace BitchlandGiveMuchMoneyBepInWx
 
             enableThisMod = configEnableMe.Value;
 
-            Harmony.CreateAndPatchAll(typeof(GiveMeMuchMoneyBitchlandBepInEx));
+            PatchAllHarmonyMethods();
 
             Logger.LogInfo($"Plugin GiveMeMuchMoneyForBitchLand BepInEx is loaded!");
         }
-
-        [HarmonyPatch(typeof(job_ArmyBuildingWork), "Chat_ReceptionGuard")]
-        [HarmonyPostfix] // call after the original method is called
         public static void job_ArmyBuildingWork_Chat_ReceptionGuard(object __instance)
         {
             Logger.LogInfo("This method is called after the original method is called!");
@@ -76,10 +73,6 @@ namespace BitchlandGiveMuchMoneyBepInWx
 
             return;
         }
-
-
-        [HarmonyPatch(typeof(job_StripClub), "StripChat")]
-        [HarmonyPostfix] // call after the original method is called
         public static void job_StripClub_StripChat(object __instance)
         {
             Logger.LogInfo("This method is called after the original method is called!");
@@ -101,12 +94,152 @@ namespace BitchlandGiveMuchMoneyBepInWx
             return;
         }
 
-        [HarmonyPatch(typeof(job_StripClub), "StripChat")]
-        [HarmonyPrefix] // Call before the original method
-        public static bool blalalalalal(object __instance)
+        public static void PatchAllHarmonyMethods()
         {
-            Logger.LogInfo("This method is called before the original StripChat method is called from the class job_StripClub!");
-            return true; // true = call the original method, false = do not call the original method
+            if (!enableThisMod)
+            {
+                return;
+            }
+
+            try
+            {
+                PatchHarmonyMethodUnity(typeof(job_ArmyBuildingWork), "Chat_ReceptionGuard", "job_ArmyBuildingWork_Chat_ReceptionGuard", false, true);
+                PatchHarmonyMethodUnity(typeof(job_StripClub), "StripChat", "job_StripClub_StripChat", false, true);
+            }
+            catch (Exception ex)
+            {
+                Logger.LogError(ex.ToString());
+            }
         }
+        public static void PatchHarmonyMethodUnity(Type originalClass, string originalMethodName, string patchedMethodName, bool usePrefix, bool usePostfix, Type[] parameters = null)
+        {
+            string uniqueId = "com.wolfitdm.GiveMeMuchMoneyBitchlandBepInEx";
+            Type uniqueType = typeof(GiveMeMuchMoneyBitchlandBepInEx);
+
+            // Create a new Harmony instance with a unique ID
+            var harmony = new Harmony(uniqueId);
+
+            if (originalClass == null)
+            {
+                Logger.LogInfo($"GetType originalClass == null");
+                return;
+            }
+
+            MethodInfo patched = null;
+
+            try
+            {
+                patched = AccessTools.Method(uniqueType, patchedMethodName);
+            }
+            catch (Exception ex)
+            {
+                patched = null;
+            }
+
+            if (patched == null)
+            {
+                Logger.LogInfo($"AccessTool.Method patched {patchedMethodName} == null");
+                return;
+
+            }
+
+            // Or apply patches manually
+            MethodInfo original = null;
+
+            try
+            {
+                if (parameters == null)
+                {
+                    original = AccessTools.Method(originalClass, originalMethodName);
+                }
+                else
+                {
+                    original = AccessTools.Method(originalClass, originalMethodName, parameters);
+                }
+            }
+            catch (AmbiguousMatchException ex)
+            {
+                Type[] nullParameters = new Type[] { };
+                try
+                {
+                    if (patched == null)
+                    {
+                        parameters = nullParameters;
+                    }
+
+                    ParameterInfo[] parameterInfos = patched.GetParameters();
+
+                    if (parameterInfos == null || parameterInfos.Length == 0)
+                    {
+                        parameters = nullParameters;
+                    }
+
+                    List<Type> parametersN = new List<Type>();
+
+                    for (int i = 0; i < parameterInfos.Length; i++)
+                    {
+                        ParameterInfo parameterInfo = parameterInfos[i];
+
+                        if (parameterInfo == null)
+                        {
+                            continue;
+                        }
+
+                        if (parameterInfo.Name == null)
+                        {
+                            continue;
+                        }
+
+                        if (parameterInfo.Name.StartsWith("__"))
+                        {
+                            continue;
+                        }
+
+                        Type type = parameterInfos[i].ParameterType;
+
+                        if (type == null)
+                        {
+                            continue;
+                        }
+
+                        parametersN.Add(type);
+                    }
+
+                    parameters = parametersN.ToArray();
+                }
+                catch (Exception ex2)
+                {
+                    parameters = nullParameters;
+                }
+
+                try
+                {
+                    original = AccessTools.Method(originalClass, originalMethodName, parameters);
+                }
+                catch (Exception ex2)
+                {
+                    original = null;
+                }
+            }
+            catch (Exception ex)
+            {
+                original = null;
+            }
+
+            if (original == null)
+            {
+                Logger.LogInfo($"AccessTool.Method original {originalMethodName} == null");
+                return;
+            }
+
+            HarmonyMethod patchedMethod = new HarmonyMethod(patched);
+            var prefixMethod = usePrefix ? patchedMethod : null;
+            var postfixMethod = usePostfix ? patchedMethod : null;
+
+            harmony.Patch(original,
+                prefix: prefixMethod,
+                postfix: postfixMethod);
+        }
+
     }
 }
