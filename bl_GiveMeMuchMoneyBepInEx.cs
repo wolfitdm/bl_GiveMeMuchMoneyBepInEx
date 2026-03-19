@@ -9,6 +9,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Reflection;
+using System.Text.RegularExpressions;
 using UnityEngine;
 using UnityEngine;
 
@@ -51,6 +52,47 @@ namespace BitchlandGiveMuchMoneyBepInWx
 
             Logger.LogInfo($"Plugin GiveMeMuchMoneyForBitchLand BepInEx is loaded!");
         }
+
+        public static void BL_AddChatOption(string chattext, Action onOption)
+        {
+            UI_Gameplay _gameplay = Main.Instance.GameplayMenu;
+
+            bool foundChatOption = false;
+            for (int i = 0; i < _gameplay.ChatOptions.Length; i++)
+            {
+                if (!_gameplay.ChatOptions[i].activeSelf)
+                {
+                    foundChatOption = true;
+                    break;
+                }
+            }
+
+            if (!foundChatOption)
+            {
+                int oldLength = _gameplay.ChatOptions.Length;
+
+                string old_chattext = _gameplay.ChatOptions_text[oldLength - 1].text;
+
+                old_chattext = Regex.Replace(old_chattext, @"[0-9]+\s+.\s+", "");
+                Action old_chatcode = _gameplay.ChatOptions_code[oldLength - 1];
+
+
+                _gameplay.ChatOptions[oldLength - 1].SetActive(value: false);
+
+                _gameplay.AddChatOption("[Next options]", () =>
+                {
+                    _gameplay.RemoveAllChatOptions();
+                    _gameplay.AddChatOption(chattext, onOption);
+                    _gameplay.AddChatOption(old_chattext, old_chatcode);
+                    _gameplay.SelectChatOption(0);
+                    Main.Instance.MainThreads.Add(new Action(Main.Instance.GameplayMenu.OpenedChatOptionsThread));
+                });
+            }
+            else
+            {
+                _gameplay.AddChatOption(chattext, onOption);
+            }
+        }
         public static void job_ArmyBuildingWork_Chat_ReceptionGuard(object __instance)
         {
             Logger.LogInfo("This method is called after the original method is called!");
@@ -63,7 +105,7 @@ namespace BitchlandGiveMuchMoneyBepInWx
             UI_Gameplay _gameplay = Main.Instance.GameplayMenu;
             Person person = _gameplay.PersonChattingTo;
             
-            _gameplay.AddChatOption("Give Me 90 Mio Cash and add me 100 hunger", (Action)(() =>
+            BL_AddChatOption("Give Me 90 Mio Cash and add me 100 hunger", (Action)(() =>
             {
                 Main.Instance.GameplayMenu.EnableMove();
                 Main.Instance.Player.Money += 90000000;
@@ -84,7 +126,7 @@ namespace BitchlandGiveMuchMoneyBepInWx
             job_StripClub _this = (job_StripClub)__instance;
             UI_Gameplay _gameplay = Main.Instance.GameplayMenu;
             Person person = _gameplay.PersonChattingTo;
-            _gameplay.AddChatOption("Give Me 90 Mio Cash and add me 100 hunger", (Action)(() =>
+            BL_AddChatOption("Give Me 90 Mio Cash and add me 100 hunger", (Action)(() =>
             {
                 Main.Instance.GameplayMenu.EnableMove();
                 Main.Instance.Player.Money += 90000000;
